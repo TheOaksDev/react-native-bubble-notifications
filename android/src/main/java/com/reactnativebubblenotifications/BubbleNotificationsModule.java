@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.app.Activity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +25,8 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ActivityEventListener;
+import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.bridge.WritableMap;
@@ -40,6 +43,11 @@ import com.txusballesteros.bubbles.OnInitializedCallback;
 public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
     public static final String NAME = "BubbleNotifications";
+    private static final int REQUEST_CODE = 66;
+    private static final String E_ACTIVITY_DOES_NOT_EXIST = "E_ACTIVITY_DOES_NOT_EXIST";
+    private static final String E_PERMISSION_NOT_GRANTED = "E_PERMISSION_NOT_GRANTED";
+    private static final String E_FAILED_TO_OPEN_SETTINGS = "E_FAILED_TO_OPEN_SETTINGS";
+
     private BubblesManager bubblesManager;
     private final ReactApplicationContext reactContext;
     private BubbleLayout bubbleView;
@@ -58,7 +66,27 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     private String dropOffLocReact;
     private String dropOffAddrReact;
     private String fareReact;
+    private String assignmentIdReact;
     private HashMap<String, Boolean> bubbleStatus = new HashMap<String, Boolean>();
+
+    private Promise bubblePermPromise;
+
+    private final ActivityEventListener bActivityEventListener = new BaseActivityEventListener() {
+
+      @Override
+      public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
+        if (requestCode == REQUEST_CODE) {
+          if (bubblePermPromise != null) {
+            if (hasPermission()) {
+              bubblePermPromise.resolve(hasPermission());
+            } else {
+              bubblePermPromise.reject(E_PERMISSION_NOT_GRANTED);
+            }
+            bubblePermPromise = null;
+          }
+        }
+      }
+    };
 
     public HashMap getBubbleStatus() {
       return bubbleStatus;
@@ -67,6 +95,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     public BubbleNotificationsModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
+
+        reactContext.addActivityEventListener(bActivityEventListener);
     }
 
     @Override
@@ -186,12 +216,13 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void loadData(String dropOffLocation, String dropOffAddress, String pickUpLocation, String pickUpAddress, String fare) {
+    public void loadData(String dropOffLocation, String dropOffAddress, String pickUpLocation, String pickUpAddress, String fare, String assignmentId) {
       pickUpAddrReact = pickUpAddress;
       pickUpLocReact = pickUpLocation;
       dropOffAddrReact = dropOffAddress;
       dropOffLocReact = dropOffLocation;
       fareReact = fare;
+      assignmentIdReact = assignmentId;
 
       runOnUiThread(new Runnable() {
         @Override
@@ -268,6 +299,18 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod // Notates a method that should be exposed to React
+    public void destroy(final Promise promise) {
+        try {
+          bubblesManager.recycle();
+          bubbleStatus.put("bubbleInitialized", new Boolean(false));
+          bubbleStatus.put("ShowingBubble", new Boolean(false));
+          promise.resolve("bubble destroyed");
+        } catch (Exception e) {
+          promise.reject(e);
+        }
+    }
+
     @ReactMethod
     public void getState(final Promise promise) {
         try {
@@ -294,18 +337,28 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     }
 
     public void requestPermissionAction(final Promise promise) {
-        if (!hasPermission()) {
-          Intent intent = new Intent(
-            Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-            Uri.parse("package:" + reactContext.getPackageName())
-          );
-          Bundle bundle = new Bundle();
-          reactContext.startActivityForResult(intent, 0, bundle);
+        Activity currentActivity = getCurrentActivity();
+
+        if (currentActivity == null) {
+          promise.reject(E_ACTIVITY_DOES_NOT_EXIST, "requestPermissionAction() - currentActivity == null");
+          return;
         }
-        if (hasPermission()) {
-          promise.resolve(hasPermission());
-        } else {
-          promise.reject("no Permission Granted");
+        
+        // Store the promise to resolve/reject when settings returns data
+        bubblePermPromise = promise;
+
+        try {
+            if (!hasPermission()) {
+              Intent intent = new Intent(
+                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:" + reactContext.getPackageName())
+              );
+              Bundle bundle = new Bundle();
+              reactContext.startActivityForResult(intent, REQUEST_CODE, bundle);
+            }
+        } catch (Exception e) {
+            bubblePermPromise.reject(E_FAILED_TO_OPEN_SETTINGS, e);
+            bubblePermPromise = null;
         }
     }
 
@@ -321,13 +374,13 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         }
     }
 
-
     private void sendEvent(String eventName) {
       if (eventName == "floating-bubble-remove") {
         bubbleStatus.put("ShowingBubble", new Boolean(false));
       }
 
         WritableMap params = Arguments.createMap();
+        params.putString("assignmentId", assignmentIdReact);
         reactContext
           .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
           .emit(eventName, params);

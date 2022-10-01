@@ -67,7 +67,11 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     private String dropOffAddrReact;
     private String fareReact;
     private String assignmentIdReact;
-    private HashMap<String, Boolean> bubbleStatus = new HashMap<String, Boolean>();
+    private HashMap<String, Boolean> bubbleStatus = new HashMap<String, Boolean>() {{
+      put("ShowingBubble", new Boolean(false));
+      put("hasPermission", new Boolean(false));
+      put("bubbleInitialized", new Boolean(false));
+    }};
 
     private Promise bubblePermPromise;
 
@@ -78,6 +82,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         if (requestCode == REQUEST_CODE) {
           if (bubblePermPromise != null) {
             if (hasPermission()) {
+              bubbleStatus.put("hasPermission", hasPermission());
               bubblePermPromise.resolve(hasPermission());
             } else {
               bubblePermPromise.reject(E_PERMISSION_NOT_GRANTED);

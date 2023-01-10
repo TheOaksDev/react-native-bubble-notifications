@@ -228,6 +228,16 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
       dropOffLocReact = dropOffLocation;
       fareReact = fare;
       assignmentIdReact = assignmentId;
+    }
+
+    @ReactMethod
+    public void loadDataAndExpand(String dropOffLocation, String dropOffAddress, String pickUpLocation, String pickUpAddress, String fare, String assignmentId) {
+      pickUpAddrReact = pickUpAddress;
+      pickUpLocReact = pickUpLocation;
+      dropOffAddrReact = dropOffAddress;
+      dropOffLocReact = dropOffLocation;
+      fareReact = fare;
+      assignmentIdReact = assignmentId;
 
       runOnUiThread(new Runnable() {
         @Override

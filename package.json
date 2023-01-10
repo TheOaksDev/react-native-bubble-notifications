@@ -1,6 +1,6 @@
 {
   "name": "react-native-bubble-notifications",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "external draw over app bubble for android",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

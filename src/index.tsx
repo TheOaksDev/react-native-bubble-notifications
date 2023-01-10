@@ -45,6 +45,10 @@ export const loadData = (dropOffLoc: string, dropOffAddr: string, pickUpLoc: str
   return BubbleNotifications.loadData(dropOffLoc, dropOffAddr, pickUpLoc, pickUpAddr, fare, assignmentId)
 }
 
+export const loadDataAndExpand = (dropOffLoc: string, dropOffAddr: string, pickUpLoc: string, pickUpAddr: string, fare: string, assignmentId: string) => {
+  return BubbleNotifications.loadDataAndExpand(dropOffLoc, dropOffAddr, pickUpLoc, pickUpAddr, fare, assignmentId)
+}
+
 export const getBubbleState = () => {
   return BubbleNotifications.getState();
 }

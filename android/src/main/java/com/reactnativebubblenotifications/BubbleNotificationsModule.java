@@ -148,11 +148,11 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
               expandNotification(
                 pickUpLocReact,
-                dropOffLocReact
+                dropOffLocReact,
                 fareDistanceReact,
                 fareDurationReact,
                 fareReact
-                );
+              );
 
               sendEvent("floating-bubble-press");
             }

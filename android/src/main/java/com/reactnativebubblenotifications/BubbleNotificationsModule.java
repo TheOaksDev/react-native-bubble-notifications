@@ -223,7 +223,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             //Hide notification and set text back to empty
             pickUpAddr.setText("");
             dropOffAddr.setText("");
-            pickUpLoc.setText("");
+            //pickUpLoc.setText("");
             fareDuration.setText("");
             fareDistance.setText("");
             notificationView.setVisibility(View.GONE);

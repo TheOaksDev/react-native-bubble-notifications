@@ -167,55 +167,63 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
     public void expandNotification(String dropOffLocation, String dropOffAddress, String pickUpLocation, String pickUpAddress, String fare) {
       //Identify all resources
-      notificationView = bubbleView.findViewById(R.id.notification_layout);
-      wridzIcon = bubbleView.findViewById(R.id.imageView2);
-      pathIcon = bubbleView.findViewById(R.id.imageView);
-      pickUpLoc = bubbleView.findViewById(R.id.pickUpLocation);
-      dropOffLoc = bubbleView.findViewById(R.id.dropOffLocation);
-      pickUpAddr = bubbleView.findViewById(R.id.pickUpAddress);
-      dropOffAddr = bubbleView.findViewById(R.id.dropOffAddress);
-      farePrice = bubbleView.findViewById(R.id.Fare);
-      reEnter = (Button) bubbleView.findViewById(R.id.re_open_app);
-      
-      if (notificationView.getVisibility() == View.GONE)
-      {
-        //Set Resources according to what needs to be shown
-        notificationView.setVisibility(View.VISIBLE);
-        wridzIcon.setImageResource(R.drawable.bubble_icon);
-        farePrice.setText("No Trip Requests");
 
-        //Set bottom Button to reopen the app on click
-        reEnter.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            Intent launchIntent = reactContext.getPackageManager().getLaunchIntentForPackage(reactContext.getPackageName());
-            if (launchIntent != null) {
-              if (pickUpAddrReact!=  null && pickUpLocReact != null && dropOffLocReact != null && dropOffAddrReact != null && fareReact != null) {
-                sendEvent("app-opened-from-notification");
+      if (bubbleView != null) {
+
+        try {
+          notificationView = bubbleView.findViewById(R.id.notification_layout);
+          wridzIcon = bubbleView.findViewById(R.id.imageView2);
+          pathIcon = bubbleView.findViewById(R.id.imageView);
+          pickUpLoc = bubbleView.findViewById(R.id.pickUpLocation);
+          dropOffLoc = bubbleView.findViewById(R.id.dropOffLocation);
+          pickUpAddr = bubbleView.findViewById(R.id.pickUpAddress);
+          dropOffAddr = bubbleView.findViewById(R.id.dropOffAddress);
+          farePrice = bubbleView.findViewById(R.id.Fare);
+          reEnter = (Button) bubbleView.findViewById(R.id.re_open_app);
+          
+          if (notificationView.getVisibility() == View.GONE)
+          {
+            //Set Resources according to what needs to be shown
+            notificationView.setVisibility(View.VISIBLE);
+            wridzIcon.setImageResource(R.drawable.bubble_icon);
+            farePrice.setText("No Trip Requests");
+
+            //Set bottom Button to reopen the app on click
+            reEnter.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                Intent launchIntent = reactContext.getPackageManager().getLaunchIntentForPackage(reactContext.getPackageName());
+                if (launchIntent != null) {
+                  if (pickUpAddrReact!=  null && pickUpLocReact != null && dropOffLocReact != null && dropOffAddrReact != null && fareReact != null) {
+                    sendEvent("app-opened-from-notification");
+                  }
+                  reactContext.startActivity(launchIntent);
+                  notificationView.setVisibility(View.GONE);
+                }
               }
-              reactContext.startActivity(launchIntent);
-              notificationView.setVisibility(View.GONE);
+            });
+
+            if (pickUpAddress !=  null && pickUpLocation != null && dropOffLocation != null && dropOffAddress != null && fare != null) {
+              pathIcon.setImageResource(R.drawable.path);
+              pickUpAddr.setText(pickUpAddress);
+              pickUpLoc.setText(pickUpLocation);
+              dropOffLoc.setText(dropOffLocation);
+              dropOffAddr.setText(dropOffAddress);
+              farePrice.setText(fare);
             }
           }
-        });
+          else
+          {
+            //Hide notification and set text back to empty
+            pickUpAddr.setText("");
+            pickUpLoc.setText("");
+            dropOffLoc.setText("");
+            dropOffAddr.setText("");
+            notificationView.setVisibility(View.GONE);
 
-        if (pickUpAddress !=  null && pickUpLocation != null && dropOffLocation != null && dropOffAddress != null && fare != null) {
-          pathIcon.setImageResource(R.drawable.path);
-          pickUpAddr.setText(pickUpAddress);
-          pickUpLoc.setText(pickUpLocation);
-          dropOffLoc.setText(dropOffLocation);
-          dropOffAddr.setText(dropOffAddress);
-          farePrice.setText(fare);
-        }
-      }
-      else
-      {
-        //Hide notification and set text back to empty
-        pickUpAddr.setText("");
-        pickUpLoc.setText("");
-        dropOffLoc.setText("");
-        dropOffAddr.setText("");
-        notificationView.setVisibility(View.GONE);
+          }
+        } catch (Exception e) {}
+      
 
       }
     }

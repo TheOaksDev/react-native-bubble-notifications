@@ -61,11 +61,15 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     private TextView pickUpAddr;
     private TextView dropOffAddr;
     private TextView farePrice;
+
     private String pickUpLocReact;
-    private String pickUpAddrReact;
+    //private String pickUpAddrReact;
     private String dropOffLocReact;
-    private String dropOffAddrReact;
+    //private String dropOffAddrReact;
     private String fareReact;
+    private String fareDistanceReact;
+    private String fareDurationReact;
+
     private String assignmentIdReact;
     private HashMap<String, Boolean> bubbleStatus = new HashMap<String, Boolean>() {{
       put("ShowingBubble", new Boolean(false));
@@ -143,10 +147,10 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             public void onBubbleClick(BubbleLayout bubble) {
 
               expandNotification(
-                dropOffLocReact,
-                dropOffAddrReact,
                 pickUpLocReact,
-                pickUpAddrReact,
+                dropOffLocReact
+                fareDistanceReact,
+                fareDurationReact,
                 fareReact
                 );
 
@@ -165,7 +169,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         return true;
     }
 
-    public void expandNotification(String dropOffLocation, String dropOffAddress, String pickUpLocation, String pickUpAddress, String fare) {
+    public void expandNotification(String origin, String dest, String duration, String distance,  String fare) {
       //Identify all resources
 
       if (bubbleView != null) {
@@ -174,11 +178,13 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           notificationView = bubbleView.findViewById(R.id.notification_layout);
           wridzIcon = bubbleView.findViewById(R.id.imageView2);
           pathIcon = bubbleView.findViewById(R.id.imageView);
-          pickUpLoc = bubbleView.findViewById(R.id.pickUpLocation);
-          dropOffLoc = bubbleView.findViewById(R.id.dropOffLocation);
+
+          fareDuration = bubbleView.findViewById(R.id.duration);
+          fareDistance = bubbleView.findViewById(R.id.distance);
+          farePrice = bubbleView.findViewById(R.id.fare);
+
           pickUpAddr = bubbleView.findViewById(R.id.pickUpAddress);
           dropOffAddr = bubbleView.findViewById(R.id.dropOffAddress);
-          farePrice = bubbleView.findViewById(R.id.Fare);
           reEnter = (Button) bubbleView.findViewById(R.id.re_open_app);
           
           if (notificationView.getVisibility() == View.GONE)
@@ -194,7 +200,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
               public void onClick(View v) {
                 Intent launchIntent = reactContext.getPackageManager().getLaunchIntentForPackage(reactContext.getPackageName());
                 if (launchIntent != null) {
-                  if (pickUpAddrReact!=  null && pickUpLocReact != null && dropOffLocReact != null && dropOffAddrReact != null && fareReact != null) {
+                  if (pickUpLocReact != null && dropOffLocReact != null && fareDistanceReact != null && fareDurationReact != null && fareReact != null) {
                     sendEvent("app-opened-from-notification");
                   }
                   reactContext.startActivity(launchIntent);
@@ -203,12 +209,12 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
               }
             });
 
-            if (pickUpAddress !=  null && pickUpLocation != null && dropOffLocation != null && dropOffAddress != null && fare != null) {
+            if (origin !=  null && dest != null && duration != null && distance != null && fare != null) {
               pathIcon.setImageResource(R.drawable.path);
-              pickUpAddr.setText(pickUpAddress);
-              pickUpLoc.setText(pickUpLocation);
-              dropOffLoc.setText(dropOffLocation);
-              dropOffAddr.setText(dropOffAddress);
+              pickUpAddr.setText(origin);
+              dropOffAddr.setText(dest);
+              fareDuration.setText(distance);
+              fareDistance.setText(duration);
               farePrice.setText(fare);
             }
           }
@@ -216,9 +222,10 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           {
             //Hide notification and set text back to empty
             pickUpAddr.setText("");
-            pickUpLoc.setText("");
-            dropOffLoc.setText("");
             dropOffAddr.setText("");
+            pickUpLoc.setText("");
+            fareDuration.setText("");
+            fareDistance.setText("");
             notificationView.setVisibility(View.GONE);
 
           }
@@ -229,28 +236,28 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void loadData(String dropOffLocation, String dropOffAddress, String pickUpLocation, String pickUpAddress, String fare, String assignmentId) {
-      pickUpAddrReact = pickUpAddress;
-      pickUpLocReact = pickUpLocation;
-      dropOffAddrReact = dropOffAddress;
-      dropOffLocReact = dropOffLocation;
+    public void loadData(String origin, String dest, String duration, String distance,  String fare, String assignmentId) {
+      pickUpLocReact = origin;
+      dropOffLocReact = dest;
+      fareDistanceReact = distance;
+      fareDurationReact = duration;
       fareReact = fare;
       assignmentIdReact = assignmentId;
     }
 
     @ReactMethod
-    public void loadDataAndExpand(String dropOffLocation, String dropOffAddress, String pickUpLocation, String pickUpAddress, String fare, String assignmentId) {
-      pickUpAddrReact = pickUpAddress;
-      pickUpLocReact = pickUpLocation;
-      dropOffAddrReact = dropOffAddress;
-      dropOffLocReact = dropOffLocation;
+    public void loadDataAndExpand(String origin, String dest, String duration, String distance,  String fare, String assignmentId) {
+      pickUpLocReact = origin;
+      dropOffLocReact = dest;
+      fareDistanceReact = distance;
+      fareDurationReact = duration;
       fareReact = fare;
       assignmentIdReact = assignmentId;
 
       runOnUiThread(new Runnable() {
         @Override
         public void run() {
-          expandNotification(dropOffLocation, dropOffAddress, pickUpLocation, pickUpAddress, fare);
+          expandNotification(origin, dest, distance, duration, fare);
         }
       });
     }
@@ -268,11 +275,12 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void resetBubbleDataFromReact(final Promise promise) {
       try {
-        dropOffAddrReact = null;
-        dropOffLocReact = null;
         pickUpLocReact = null;
-        pickUpAddrReact = null;
+        dropOffLocReact = null;
+        fareDistanceReact = null;
+        fareDurationReact = null;
         fareReact = null;
+        assignmentIdReact = null;
         promise.resolve("Data Wiped");
       }catch(Exception e) {
         promise.reject(e);

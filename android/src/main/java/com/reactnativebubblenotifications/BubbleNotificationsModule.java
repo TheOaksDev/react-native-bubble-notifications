@@ -56,8 +56,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     private LinearLayout notificationView ;
     private ImageView wridzIcon ;
     private ImageView pathIcon;
-    private TextView pickUpLoc;
-    private TextView dropOffLoc;
+    private TextView fareDuration;
+    private TextView fareDistance;
     private TextView pickUpAddr;
     private TextView dropOffAddr;
     private TextView farePrice;
@@ -176,8 +176,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
         try {
           notificationView = bubbleView.findViewById(R.id.notification_layout);
-          wridzIcon = bubbleView.findViewById(R.id.imageView2);
-          pathIcon = bubbleView.findViewById(R.id.imageView);
+          //wridzIcon = bubbleView.findViewById(R.id.imageView2);
+          //pathIcon = bubbleView.findViewById(R.id.imageView);
 
           fareDuration = bubbleView.findViewById(R.id.duration);
           fareDistance = bubbleView.findViewById(R.id.distance);
@@ -191,7 +191,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           {
             //Set Resources according to what needs to be shown
             notificationView.setVisibility(View.VISIBLE);
-            wridzIcon.setImageResource(R.drawable.bubble_icon);
+            //wridzIcon.setImageResource(R.drawable.bubble_icon);
             farePrice.setText("No Trip Requests");
 
             //Set bottom Button to reopen the app on click
@@ -210,7 +210,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             });
 
             if (origin !=  null && dest != null && duration != null && distance != null && fare != null) {
-              pathIcon.setImageResource(R.drawable.path);
+              //pathIcon.setImageResource(R.drawable.path);
               pickUpAddr.setText(origin);
               dropOffAddr.setText(dest);
               fareDuration.setText(distance);

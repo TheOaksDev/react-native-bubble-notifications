@@ -3,48 +3,40 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:background="@drawable/rounded_corners"
   android:layout_gravity="center"
+  android:background="@drawable/rounded_corners"
   android:orientation="vertical">
 
-  <ImageView
-    android:id="@+id/imageView2"
-    android:layout_width="80dp"
-    android:layout_height="75dp"
-    android:layout_marginTop="8dp"
-    android:layout_gravity="center"
-    app:srcCompat="@drawable/bubble_icon" />
-
   <!-- Fare -->
-  <TextView
-    android:id="@+id/Fare"
-    android:layout_width="match_parent"
+
+  <LinearLayout
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:fontFamily="sans-serif-medium"
-    android:gravity="center"
-    android:text="$10.50"
-    android:textColor="#f4f4f4"
-    android:padding="5dp"
-    android:layout_marginVertical="2dp"
-    android:textSize="50dp"/>
+    android:layout_weight="0"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <ImageView
+      android:id="@+id/imageView2"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_marginTop="8dp"
+      app:srcCompat="@drawable/bubble_icon" />
+  </LinearLayout>
 
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="10dp">
-
-    <ImageView
-      android:id="@+id/imageView"
-      android:layout_width="90dp"
-      android:layout_height="221dp"
-      android:layout_gravity="center"
-      app:srcCompat="@drawable/path" />
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="center"
+      android:layout_gravity="start"
+      android:layout_weight="1"
       android:orientation="vertical">
 
       <TextView
@@ -53,66 +45,141 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="sans-serif-medium"
-        android:gravity="center"
+        android:gravity="center|start"
         android:padding="5dp"
-        android:text="15 Minutes 5 Miles Away "
+        android:text="Assigned a trip"
         android:textColor="#f4f4f4"
-        android:textSize="20dp" />
+        android:textSize="34sp" />
 
-      <TextView
-        android:id="@+id/pickUpAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:lines="2"
-        android:padding="5dp"
-        android:text="1413 Colorado Bend Dr, Cedar Park "
-        android:textColor="#f4f4f4"
-        android:textSize="22dp" />
-
-      <TextView
-        android:id="@+id/dropOffLocation"
+      <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:fontFamily="sans-serif-medium"
-        android:text="12 mins/ 4.8mi Trip"
-        android:textColor="#f4f4f4"
-        android:textSize="20dp"/>
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:id="@+id/markerFrom"
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:layout_marginTop="8dp"
+          android:layout_weight="0"
+          app:srcCompat="@drawable/marker_from" />
+
+        <TextView
+          android:id="@+id/pickUpAddress"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="sans-serif-medium"
+          android:lines="1"
+          android:padding="5dp"
+          android:text="1413 Colorado Bend Dr, Cedar Park "
+          android:textColor="#f4f4f4"
+          android:textSize="22dp" />
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:id="@+id/markerTo"
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:layout_marginTop="8dp"
+          android:layout_weight="0"
+          app:srcCompat="@drawable/marker_to" />
+
+        <TextView
+          android:id="@+id/dropOffAddress"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="sans-serif-medium"
+          android:lines="1"
+          android:padding="5dp"
+          android:text="Mojo Coffee Ranch Road 620, Cedar Park"
+          android:textColor="#f4f4f4"
+          android:textSize="22dp" />
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="10dp">
 
       <TextView
-        android:id="@+id/dropOffAddress"
+        android:id="@+id/fare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:layout_gravity="end"
+        android:layout_marginVertical="2dp"
+        android:background="@drawable/round_button"
         android:fontFamily="sans-serif-medium"
-        android:lines="2"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Mojo Coffee Ranch Road 620, Cedar Park"
+        android:padding="5dp"
+        android:text="$10.50"
         android:textColor="#f4f4f4"
-        android:textSize="22dp"/>
+        android:textSize="24sp" />
+
+      <TextView
+        android:id="@+id/fare2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginVertical="2dp"
+        android:background="@drawable/round_secondary_button"
+        android:fontFamily="sans-serif-medium"
+        android:padding="5dp"
+        android:text="5 mi"
+        android:textColor="#f4f4f4"
+        android:textSize="24sp" />
+
+      <TextView
+        android:id="@+id/fare3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginVertical="2dp"
+        android:background="@drawable/round_secondary_button"
+        android:fontFamily="sans-serif-medium"
+        android:padding="5dp"
+        android:text="20 min"
+        android:textColor="#f4f4f4"
+        android:textSize="24sp" />
 
     </LinearLayout>
 
   </LinearLayout>
 
   <!-- Lower Buttons -->
-  <Button
-    android:id="@+id/re_open_app"
-    android:layout_marginVertical="15dp"
-    android:layout_width="250dp"
-    android:layout_gravity="center"
-    android:layout_height="45dp"
-    android:background="@drawable/round_button"
-    android:text="Return to app"
-    android:textColor="#f4f4f4"
-    android:textFontWeight="700"
-    android:onClick="reopenApp"
-    android:textSize="15dp" />
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="0"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <Button
+      android:id="@+id/re_open_app"
+      android:layout_width="250dp"
+      android:layout_height="45dp"
+      android:layout_gravity="center"
+      android:layout_marginVertical="15dp"
+      android:background="@drawable/round_button"
+      android:onClick="reopenApp"
+      android:text="Return to app"
+      android:textColor="#f4f4f4"
+      android:textFontWeight="700"
+      android:textSize="15dp" />
+
+  </LinearLayout>
 
 </LinearLayout>

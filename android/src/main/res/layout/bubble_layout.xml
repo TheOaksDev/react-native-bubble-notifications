@@ -38,17 +38,17 @@
       <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
+        android:layout_weight="1"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
         <ImageView
-          android:id="@+id/imageView"
+          android:id="@+id/logo"
           android:layout_width="40dp"
           android:layout_height="40dp"
           android:layout_marginTop="8dp"
-          app:srcCompat="@drawable/bubble_icon" />
+          app:src="@drawable/bubble_icon" />
       </LinearLayout>
 
       <LinearLayout
@@ -66,7 +66,7 @@
           android:orientation="vertical">
 
           <TextView
-            android:id="@+id/pickUpLocation"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -75,7 +75,7 @@
             android:padding="5dp"
             android:text="Assigned a trip"
             android:textColor="#f4f4f4"
-            android:textSize="34sp" />
+            android:textSize="28ssp" />
 
           <LinearLayout
             android:layout_width="match_parent"
@@ -90,7 +90,7 @@
               android:layout_height="20dp"
               android:layout_marginTop="8dp"
               android:layout_weight="0"
-              app:srcCompat="@drawable/marker_from" />
+              app:src="@drawable/marker_from" />
 
             <TextView
               android:id="@+id/pickUpAddress"
@@ -118,7 +118,7 @@
               android:layout_height="20dp"
               android:layout_marginTop="8dp"
               android:layout_weight="0"
-              app:srcCompat="@drawable/marker_to" />
+              app:src="@drawable/marker_to" />
 
             <TextView
               android:id="@+id/dropOffAddress"

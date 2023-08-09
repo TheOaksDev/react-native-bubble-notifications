@@ -56,6 +56,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     private LinearLayout notificationView ;
     private LinearLayout addressView ;
     private LinearLayout chipView ;
+    private LinearLayout detailedMessage ;
 
     private ImageView wridzIcon ;
     private ImageView pathIcon;
@@ -181,7 +182,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           notificationView = bubbleView.findViewById(R.id.notification_layout);
           addressView = bubbleView.findViewById(R.id.address_container);
           chipView = bubbleView.findViewById(R.id.chip_container);
-
+          detailedMessage = bubbleView.findViewById(R.id.detailed_message);
           //wridzIcon = bubbleView.findViewById(R.id.imageView2);
           //pathIcon = bubbleView.findViewById(R.id.imageView);
 
@@ -199,6 +200,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             notificationView.setVisibility(View.VISIBLE);
             addressView.setVisibility(View.GONE);
             chipView.setVisibility(View.GONE);
+            detailedMessage.setVisibility(View.GONE);
             //wridzIcon.setImageResource(R.drawable.bubble_icon);
             farePrice.setText("No Trip Requests");
 
@@ -221,6 +223,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
               //pathIcon.setImageResource(R.drawable.path);
               addressView.setVisibility(View.VISIBLE);
               chipView.setVisibility(View.VISIBLE);
+              detailedMessage.setVisibility(View.VISIBLE);
               pickUpAddr.setText(origin);
               dropOffAddr.setText(dest);
               fareDuration.setText(distance);
@@ -239,6 +242,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             notificationView.setVisibility(View.GONE);
             addressView.setVisibility(View.GONE);
             chipView.setVisibility(View.GONE);
+            detailedMessage.setVisibility(View.GONE);
           }
         } catch (Exception e) {}
       

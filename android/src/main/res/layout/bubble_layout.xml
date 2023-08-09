@@ -17,8 +17,8 @@
     <ImageView
       android:id="@+id/avatar"
       android:contentDescription="@string/bubble_image"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
+      android:layout_width="70dp"
+      android:layout_height="70dp"
       android:layout_marginBottom="5dp"
       android:background="@drawable/profile_decorator"
       android:src="@drawable/bubble_icon"
@@ -35,35 +35,39 @@
 
       <!-- Fare -->
 
-      <LinearLayout
+<!--      <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        android:layout_gravity="start"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingLeft="20dp"-->
+<!--        android:paddingTop="20dp"-->
+<!--        android:paddingBottom="10dp"-->
+<!--        android:showDividers="middle"-->
+<!--        android:divider="@drawable/width_divider"-->
+<!--        android:paddingRight="20dp">-->
+
+<!--        <ImageView-->
+<!--          android:id="@+id/logo"-->
+<!--          android:layout_width="25dp"-->
+<!--          android:layout_height="25dp"-->
+<!--          android:src="@drawable/bubble_icon" />-->
+
+<!--      </LinearLayout>-->
+
+      <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
-        android:showDividers="middle"
-        android:divider="@drawable/width_divider"
-        android:paddingRight="20dp">
-
-        <ImageView
-          android:id="@+id/logo"
-          android:layout_width="40dp"
-          android:layout_height="40dp"
-          android:src="@drawable/bubble_icon" />
-
-        <TextView
-          android:id="@+id/title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:fontFamily="sans-serif-medium"
-          android:gravity="center|start"
-          android:text="Assigned a trip"
-          android:textColor="#f4f4f4"
-          android:textSize="34sp" />
-
-      </LinearLayout>
+        android:paddingRight="20dp"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-medium"
+        android:text="Assigned a trip"
+        android:textColor="#f4f4f4"
+        android:textSize="34sp" />
 
       <LinearLayout
         android:id="@+id/address_container"
@@ -143,6 +147,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:showDividers="middle"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:divider="@drawable/width_divider"
         android:layout_marginTop="10dp">
 
@@ -184,19 +190,17 @@
 
       </LinearLayout>
 
-
-      <!-- Lower Buttons -->
       <LinearLayout
+        android:id="@+id/detailed_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <TextView
-          android:id="@+id/extraMessage"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:fontFamily="sans-serif-medium"
@@ -206,6 +210,17 @@
           android:textColor="#f4f4f4"
           android:textSize="18dp" />
 
+      </LinearLayout>
+
+      <!-- Lower Buttons -->
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+        
         <Button
           android:id="@+id/re_open_app"
           android:layout_width="250dp"

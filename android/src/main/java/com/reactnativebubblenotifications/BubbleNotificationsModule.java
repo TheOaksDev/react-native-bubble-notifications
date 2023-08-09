@@ -161,6 +161,10 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           }
         });
     bubbleView.setShouldStickToWall(true);
+    title = bubbleView.findViewById(R.id.title);
+    detailedMessage = bubbleView.findViewById(R.id.detailed_message_content);
+    title.setText("Currently Online");
+    detailedMessage.setText("Waiting for trip assignments");
     bubblesManager.addBubble(bubbleView, x, y);
   }
 

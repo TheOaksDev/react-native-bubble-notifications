@@ -55,7 +55,6 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
   private LinearLayout notificationView;
   private LinearLayout addressView;
   private LinearLayout chipView;
-  private LinearLayout detailedMessageView;
 
   private ImageView wridzIcon;
   private ImageView pathIcon;
@@ -181,7 +180,6 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         notificationView = bubbleView.findViewById(R.id.notification_layout);
         addressView = bubbleView.findViewById(R.id.address_container);
         chipView = bubbleView.findViewById(R.id.chip_container);
-        detailedMessageView = bubbleView.findViewById(R.id.detailed_message);
         title = bubbleView.findViewById(R.id.title);
         detailedMessage = bubbleView.findViewById(R.id.detailed_message_content);
         // wridzIcon = bubbleView.findViewById(R.id.imageView2);
@@ -205,7 +203,6 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           notificationView.setVisibility(View.VISIBLE);
           addressView.setVisibility(View.GONE);
           chipView.setVisibility(View.GONE);
-          detailedMessageView.setVisibility(View.GONE);
           // wridzIcon.setImageResource(R.drawable.bubble_icon);
           title.setText("Currently Online");
           detailedMessage.setText("Waiting for trip assignments");
@@ -233,7 +230,6 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             detailedMessage.setText("Some dist/dur from pickup");
             addressView.setVisibility(View.VISIBLE);
             chipView.setVisibility(View.VISIBLE);
-            detailedMessageView.setVisibility(View.VISIBLE);
             pickUpAddr.setText(origin);
             dropOffAddr.setText(dest);
             fareDuration.setText(distance);
@@ -252,7 +248,6 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           notificationView.setVisibility(View.GONE);
           addressView.setVisibility(View.GONE);
           chipView.setVisibility(View.GONE);
-          detailedMessageView.setVisibility(View.GONE);
         }
       } catch (Exception e) {
       }

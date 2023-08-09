@@ -68,14 +68,13 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
   private TextView farePrice;
 
   private String pickUpLocReact;
-  // private String pickUpAddrReact;
   private String dropOffLocReact;
-  // private String dropOffAddrReact;
   private String fareReact;
   private String fareDistanceReact;
   private String fareDurationReact;
-
   private String assignmentIdReact;
+  private String detailedMessageReact;
+
   private HashMap<String, Boolean> bubbleStatus = new HashMap<String, Boolean>() {
     {
       put("ShowingBubble", new Boolean(false));
@@ -155,7 +154,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
                 dropOffLocReact,
                 fareDistanceReact,
                 fareDurationReact,
-                fareReact);
+                fareReact,
+                detailedMessageReact);
 
             sendEvent("floating-bubble-press");
           }
@@ -171,7 +171,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     return true;
   }
 
-  public void expandNotification(String origin, String dest, String duration, String distance, String fare) {
+  public void expandNotification(String origin, String dest, String duration, String distance, String fare, String pickupString) {
     // Identify all resources
 
     if (bubbleView != null) {
@@ -193,6 +193,11 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         dropOffAddr = bubbleView.findViewById(R.id.dropOffAddress);
         reEnter = (Button) bubbleView.findViewById(R.id.re_open_app);
 
+        addressView.setVisibility(View.GONE);
+        chipView.setVisibility(View.GONE);
+        title.setText("Currently Online");
+        detailedMessage.setText("Waiting for trip assignments");
+
         // TODO
         // - make the parameters an object; add a second parameter for trip state;
         // - use the trip state param and add logic for rendering different views
@@ -201,11 +206,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         if (notificationView.getVisibility() == View.GONE) {
           // Set Resources according to what needs to be shown
           notificationView.setVisibility(View.VISIBLE);
-          addressView.setVisibility(View.GONE);
-          chipView.setVisibility(View.GONE);
-          // wridzIcon.setImageResource(R.drawable.bubble_icon);
-          title.setText("Currently Online");
-          detailedMessage.setText("Waiting for trip assignments");
+          
 
           // Set bottom Button to reopen the app on click
           reEnter.setOnClickListener(new View.OnClickListener() {
@@ -224,10 +225,10 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             }
           });
 
-          if (origin != null && dest != null && duration != null && distance != null && fare != null) {
+          if (origin != null && dest != null && duration != null && distance != null && fare != null && pickupString != null) {
             // pathIcon.setImageResource(R.drawable.path);
             title.setText("Assigned a trip");
-            detailedMessage.setText("Some dist/dur from pickup");
+            detailedMessage.setText(pickupString);
             addressView.setVisibility(View.VISIBLE);
             chipView.setVisibility(View.VISIBLE);
             pickUpAddr.setText(origin);
@@ -256,17 +257,18 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void loadData(String origin, String dest, String duration, String distance, String fare, String assignmentId) {
+  public void loadData(String origin, String dest, String pickupMessage, String duration, String distance, String fare, String assignmentId) {
     pickUpLocReact = origin;
     dropOffLocReact = dest;
     fareDistanceReact = distance;
     fareDurationReact = duration;
     fareReact = fare;
     assignmentIdReact = assignmentId;
+    detailedMessageReact = pickupMessage;
   }
 
   @ReactMethod
-  public void loadDataAndExpand(String origin, String dest, String duration, String distance, String fare,
+  public void loadDataAndExpand(String origin, String dest, String pickupMessage, String duration, String distance, String fare,
       String assignmentId) {
     pickUpLocReact = origin;
     dropOffLocReact = dest;
@@ -274,11 +276,12 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     fareDurationReact = duration;
     fareReact = fare;
     assignmentIdReact = assignmentId;
+    detailedMessageReact = pickupMessage;
 
     runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        expandNotification(origin, dest, distance, duration, fare);
+        expandNotification(origin, dest, distance, duration, fare, pickupMessage);
       }
     });
   }

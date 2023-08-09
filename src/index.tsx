@@ -19,40 +19,72 @@ const BubbleNotifications = NativeModules.BubbleNotifications
 
 export const showBubble = (x = 50, y = 100) => {
   return BubbleNotifications.showFloatingBubble(x, y);
-}
+};
 
 export const hideBubble = () => {
   return BubbleNotifications.hideFloatingBubble();
-}
+};
 
 export const checkBubblePermissions = () => {
   return BubbleNotifications.checkPermission();
-}
+};
 
 export const requestBubblePermissions = () => {
   return BubbleNotifications.requestPermission();
-}
+};
 
 export const initializeBubble = () => {
   return BubbleNotifications.initialize();
-}
+};
 
 export const destoryBubble = () => {
   return BubbleNotifications.destroy();
-}
+};
 
-export const loadData = (dropOffLoc: string, dropOffAddr: string, pickUpLoc: string, pickUpAddr: string, fare: string, assignmentId: string) => {
-  return BubbleNotifications.loadData(dropOffLoc, dropOffAddr, pickUpLoc, pickUpAddr, fare, assignmentId)
-}
+export const loadData = (
+  origin: string,
+  dest: string,
+  pickupMessage: string,
+  duration: string,
+  distance: string,
+  fare: string,
+  assignmentId: string
+) => {
+  return BubbleNotifications.loadData(
+    origin,
+    dest,
+    pickupMessage,
+    duration,
+    distance,
+    fare,
+    assignmentId
+  );
+};
 
-export const loadDataAndExpand = (dropOffLoc: string, dropOffAddr: string, pickUpLoc: string, pickUpAddr: string, fare: string, assignmentId: string) => {
-  return BubbleNotifications.loadDataAndExpand(dropOffLoc, dropOffAddr, pickUpLoc, pickUpAddr, fare, assignmentId)
-}
+export const loadDataAndExpand = (
+  origin: string,
+  dest: string,
+  pickupMessage: string,
+  duration: string,
+  distance: string,
+  fare: string,
+  assignmentId: string
+) => {
+  return BubbleNotifications.loadDataAndExpand(
+    origin,
+    dest,
+    pickupMessage,
+    duration,
+    distance,
+    fare,
+    assignmentId
+  );
+};
 
 export const getBubbleState = () => {
   return BubbleNotifications.getState();
-}
+};
 
 export const resetBubbleData = () => {
   return BubbleNotifications.resetBubbleDataFromReact();
-} 
+};

@@ -17,8 +17,8 @@
     <ImageView
       android:id="@+id/avatar"
       android:contentDescription="@string/bubble_image"
-      android:layout_width="70dp"
-      android:layout_height="70dp"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
       android:layout_marginBottom="5dp"
       android:background="@drawable/profile_decorator"
       android:src="@drawable/bubble_icon"
@@ -40,16 +40,16 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
         android:showDividers="middle"
         android:divider="@drawable/width_divider"
-        android:paddingRight="10dp">
+        android:paddingRight="20dp">
 
         <ImageView
           android:id="@+id/logo"
           android:layout_width="40dp"
           android:layout_height="40dp"
-          android:layout_marginTop="8dp"
           android:src="@drawable/bubble_icon" />
 
         <TextView
@@ -59,7 +59,6 @@
           android:layout_gravity="center"
           android:fontFamily="sans-serif-medium"
           android:gravity="center|start"
-          android:padding="5dp"
           android:text="Assigned a trip"
           android:textColor="#f4f4f4"
           android:textSize="34sp" />
@@ -71,8 +70,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <LinearLayout
           android:layout_width="wrap_content"
@@ -86,13 +85,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp">
 
             <ImageView
               android:id="@+id/markerFrom"
               android:layout_width="25dp"
               android:layout_height="25dp"
-              android:layout_marginTop="8dp"
               android:layout_weight="0"
               android:src="@drawable/marker_from" />
 
@@ -102,7 +102,6 @@
               android:layout_height="wrap_content"
               android:fontFamily="sans-serif-medium"
               android:lines="1"
-              android:padding="5dp"
               android:text="1413 Colorado Bend Dr, Cedar Park "
               android:textColor="#f4f4f4"
               android:textSize="22dp" />
@@ -120,7 +119,6 @@
               android:id="@+id/markerTo"
               android:layout_width="25dp"
               android:layout_height="25dp"
-              android:layout_marginTop="8dp"
               android:layout_weight="0"
               android:src="@drawable/marker_to" />
 
@@ -130,7 +128,6 @@
               android:layout_height="wrap_content"
               android:fontFamily="sans-serif-medium"
               android:lines="1"
-              android:padding="5dp"
               android:text="Mojo Coffee Ranch Road 620, Cedar Park"
               android:textColor="#f4f4f4"
               android:textSize="22dp" />
@@ -147,14 +144,13 @@
         android:orientation="horizontal"
         android:showDividers="middle"
         android:divider="@drawable/width_divider"
-        android:padding="10dp">
+        android:layout_marginTop="10dp">
 
         <TextView
           android:id="@+id/fare"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="end"
-          android:layout_marginVertical="2dp"
           android:background="@drawable/round_secondary_button"
           android:fontFamily="sans-serif-medium"
           android:padding="8dp"
@@ -167,7 +163,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="end"
-          android:layout_marginVertical="2dp"
           android:background="@drawable/round_secondary_button"
           android:fontFamily="sans-serif-medium"
           android:padding="8dp"
@@ -180,7 +175,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="end"
-          android:layout_marginVertical="2dp"
           android:background="@drawable/round_secondary_button"
           android:fontFamily="sans-serif-medium"
           android:padding="8dp"
@@ -197,6 +191,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0"
         android:orientation="vertical"
+        android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 

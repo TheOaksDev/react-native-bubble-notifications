@@ -54,6 +54,9 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     //Layout and resources on view
     private Button reEnter;
     private LinearLayout notificationView ;
+    private LinearLayout addressView ;
+    private LinearLayout chipView ;
+
     private ImageView wridzIcon ;
     private ImageView pathIcon;
     private TextView fareDuration;
@@ -176,6 +179,9 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
         try {
           notificationView = bubbleView.findViewById(R.id.notification_layout);
+          addressView = bubbleView.findViewById(R.id.address_container);
+          chipView = bubbleView.findViewById(R.id.chip_container);
+
           //wridzIcon = bubbleView.findViewById(R.id.imageView2);
           //pathIcon = bubbleView.findViewById(R.id.imageView);
 
@@ -191,6 +197,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           {
             //Set Resources according to what needs to be shown
             notificationView.setVisibility(View.VISIBLE);
+            addressView.setVisibility(View.GONE);
+            chipView.setVisibility(View.GONE);
             //wridzIcon.setImageResource(R.drawable.bubble_icon);
             farePrice.setText("No Trip Requests");
 
@@ -211,6 +219,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
             if (origin !=  null && dest != null && duration != null && distance != null && fare != null) {
               //pathIcon.setImageResource(R.drawable.path);
+              addressView.setVisibility(View.VISIBLE);
+              chipView.setVisibility(View.VISIBLE);
               pickUpAddr.setText(origin);
               dropOffAddr.setText(dest);
               fareDuration.setText(distance);
@@ -227,7 +237,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             fareDuration.setText("");
             fareDistance.setText("");
             notificationView.setVisibility(View.GONE);
-
+            addressView.setVisibility(View.GONE);
+            chipView.setVisibility(View.GONE);
           }
         } catch (Exception e) {}
       

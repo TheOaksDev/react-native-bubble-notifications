@@ -179,7 +179,11 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         });
     bubbleView.setShouldStickToWall(true);
     title = bubbleView.findViewById(R.id.title);
+    driverNameView = bubbleView.findViewById(R.id.driver_name);
+    driverRatingView = bubbleView.findViewById(R.id.driver_rating);
     title.setText("Waiting for trip assignments");
+    driverNameView.setText(driverName);
+    driverRatingView.setText(driverRating);
     bubblesManager.addBubble(bubbleView, x, y);
   }
 

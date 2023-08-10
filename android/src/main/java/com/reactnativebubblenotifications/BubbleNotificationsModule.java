@@ -200,6 +200,9 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         addressView = bubbleView.findViewById(R.id.address_container);
         chipView = bubbleView.findViewById(R.id.chip_container);
         title = bubbleView.findViewById(R.id.title);
+        driverNameView = bubbleView.findViewById(R.id.driver_name);
+        driverRatingView = bubbleView.findViewById(R.id.driver_rating);
+
         //detailedMessage = bubbleView.findViewById(R.id.detailed_message_content);
         // wridzIcon = bubbleView.findViewById(R.id.imageView2);
         // pathIcon = bubbleView.findViewById(R.id.imageView);

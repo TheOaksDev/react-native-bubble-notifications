@@ -17,6 +17,10 @@ const BubbleNotifications = NativeModules.BubbleNotifications
       }
     );
 
+export const setConfig = (name = 'Driver', rating = '5.0') => {
+  return BubbleNotifications.setDriverInfo(name, rating);
+};
+
 export const showBubble = (x = 50, y = 100) => {
   return BubbleNotifications.showFloatingBubble(x, y);
 };

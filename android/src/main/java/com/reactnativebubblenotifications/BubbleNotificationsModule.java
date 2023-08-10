@@ -59,6 +59,13 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
   private ImageView wridzIcon;
   private ImageView pathIcon;
 
+  // Config Variables (set once, left unchanged)
+  private TextView driverNameView;
+  private String driverName;
+  private TextView driverRatingView;
+  private String driverRating;
+
+  // Standard Varibales
   private TextView title;
   private TextView detailedMessage;
   private TextView fareDuration;
@@ -118,6 +125,17 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
   @NonNull
   public String getName() {
     return NAME;
+  }
+
+  @ReactMethod
+  public void setDriverInfo(String name, String rating, final Promise promise) {
+    try {
+      driverName = name;
+      driverRating = rating;
+      promise.resolve(true);
+    } catch (Exception e) {
+      promise.reject(e);
+    }
   }
 
   @ReactMethod
@@ -197,6 +215,10 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         addressView.setVisibility(View.GONE);
         chipView.setVisibility(View.GONE);
         title.setText("Waiting for trip assignments");
+        
+        driverNameView.setText(driverName);
+        driverRating.setText(driverRating);
+
         //detailedMessage.setText("Waiting for trip assignments");
 
         // TODO

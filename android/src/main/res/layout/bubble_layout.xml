@@ -66,7 +66,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="Waiting for trip assignments"
         android:textColor="#f4f4f4"
-        android:textSize="24sp" />
+        android:textSize="22sp" />
 
       <LinearLayout
         android:id="@+id/address_container"

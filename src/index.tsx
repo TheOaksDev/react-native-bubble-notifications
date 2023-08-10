@@ -17,6 +17,16 @@ const BubbleNotifications = NativeModules.BubbleNotifications
       }
     );
 
+type Trip = {
+  state: number;
+  origin: string;
+  dest: string;
+  duration: string;
+  distance: string;
+  fare: string;
+  assignmentId: string;
+};
+
 export const setConfig = (name = 'Driver', rating = '5.0') => {
   return BubbleNotifications.setDriverInfo(name, rating);
 };
@@ -45,40 +55,12 @@ export const destoryBubble = () => {
   return BubbleNotifications.destroy();
 };
 
-export const loadData = (
-  origin: string,
-  dest: string,
-  duration: string,
-  distance: string,
-  fare: string,
-  assignmentId: string
-) => {
-  return BubbleNotifications.loadData(
-    origin,
-    dest,
-    duration,
-    distance,
-    fare,
-    assignmentId
-  );
+export const loadData = (trip: Trip) => {
+  return BubbleNotifications.loadData(trip);
 };
 
-export const loadDataAndExpand = (
-  origin: string,
-  dest: string,
-  duration: string,
-  distance: string,
-  fare: string,
-  assignmentId: string
-) => {
-  return BubbleNotifications.loadDataAndExpand(
-    origin,
-    dest,
-    duration,
-    distance,
-    fare,
-    assignmentId
-  );
+export const loadDataAndExpand = (trip: Trip) => {
+  return BubbleNotifications.loadDataAndExpand(trip);
 };
 
 export const getBubbleState = () => {

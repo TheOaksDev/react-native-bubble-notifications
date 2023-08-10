@@ -30,6 +30,7 @@ import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
@@ -55,6 +56,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
   private LinearLayout notificationView;
   private LinearLayout addressView;
   private LinearLayout chipView;
+  private LinearLayout driverInfoView;
+  private LinearLayout pickupMessageView;
 
   private ImageView wridzIcon;
   private ImageView pathIcon;
@@ -67,20 +70,21 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
   // Standard Varibales
   private TextView title;
-  private TextView detailedMessage;
+  private TextView pickupMessage;
   private TextView fareDuration;
   private TextView fareDistance;
   private TextView pickUpAddr;
   private TextView dropOffAddr;
   private TextView farePrice;
 
+  private String tripStateReact;
   private String pickUpLocReact;
   private String dropOffLocReact;
   private String fareReact;
   private String fareDistanceReact;
   private String fareDurationReact;
   private String assignmentIdReact;
-  private String detailedMessageReact;
+  private String pickupMessageReact;
 
   private HashMap<String, Boolean> bubbleStatus = new HashMap<String, Boolean>() {
     {
@@ -167,13 +171,16 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           @Override
           public void onBubbleClick(BubbleLayout bubble) {
 
-            expandNotification(
-                pickUpLocReact,
-                dropOffLocReact,
-                fareDistanceReact,
-                fareDurationReact,
-                fareReact);
+            WritableMap map = new WritableNativeMap();
+            map.putString("state", tripStateReact);
+            map.putString("origin", pickUpLocReact);
+            map.putString("dest", dropOffLocReact);
+            map.putString("distance", fareDistanceReact);
+            map.putString("duration", fareDurationReact);
+            map.putString("fare", fareReact);
+            map.putString("pickupMessage", pickupMessageReact);
 
+            expandNotification(map);
             sendEvent("floating-bubble-press");
           }
         });
@@ -194,7 +201,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     return true;
   }
 
-  public void expandNotification(String origin, String dest, String duration, String distance, String fare) {
+  public void expandNotification(ReadableMap trip) {
     // Identify all resources
 
     if (bubbleView != null) {
@@ -206,80 +213,88 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         title = bubbleView.findViewById(R.id.title);
         driverNameView = bubbleView.findViewById(R.id.driver_name);
         driverRatingView = bubbleView.findViewById(R.id.driver_rating);
+        driverInfoView = bubbleView.findViewById(R.id.driver_info);
 
-        //detailedMessage = bubbleView.findViewById(R.id.detailed_message_content);
+        pickupMessageView = bubbleView.findViewById(R.id.pickup_message_view);
         // wridzIcon = bubbleView.findViewById(R.id.imageView2);
         // pathIcon = bubbleView.findViewById(R.id.imageView);
 
+        pickUpAddr = bubbleView.findViewById(R.id.pickUpAddress);
+        dropOffAddr = bubbleView.findViewById(R.id.dropOffAddress);
         fareDuration = bubbleView.findViewById(R.id.duration);
         fareDistance = bubbleView.findViewById(R.id.distance);
         farePrice = bubbleView.findViewById(R.id.fare);
+        pickupMessage = bubbleView.findViewById(R.id.pickup_message);
 
-        pickUpAddr = bubbleView.findViewById(R.id.pickUpAddress);
-        dropOffAddr = bubbleView.findViewById(R.id.dropOffAddress);
         reEnter = (Button) bubbleView.findViewById(R.id.re_open_app);
 
         addressView.setVisibility(View.GONE);
         chipView.setVisibility(View.GONE);
         title.setText("Waiting for trip assignments");
-        
+
         driverNameView.setText(driverName);
         driverRatingView.setText(driverRating);
 
-        //detailedMessage.setText("Waiting for trip assignments");
+        // detailedMessage.setText("Waiting for trip assignments");
 
         // TODO
         // - make the parameters an object; add a second parameter for trip state;
         // - use the trip state param and add logic for rendering different views
         // by showing/hiding elements or changing verbiage on text
 
-        if (notificationView.getVisibility() == View.GONE) {
-          // Set Resources according to what needs to be shown
-          notificationView.setVisibility(View.VISIBLE);
-          
-
-          // Set bottom Button to reopen the app on click
-          reEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              Intent launchIntent = reactContext.getPackageManager()
-                  .getLaunchIntentForPackage(reactContext.getPackageName());
-              if (launchIntent != null) {
-                if (pickUpLocReact != null && dropOffLocReact != null && fareDistanceReact != null
-                    && fareDurationReact != null && fareReact != null) {
-                  sendEvent("app-opened-from-notification");
-                }
-                reactContext.startActivity(launchIntent);
-                notificationView.setVisibility(View.GONE);
-              }
-            }
-          });
-
-          if (origin != null && dest != null && duration != null && distance != null && fare != null) {
-            // pathIcon.setImageResource(R.drawable.path);
-            title.setText("Assigned a trip");
-            //detailedMessage.setText(pickupString);
-            addressView.setVisibility(View.VISIBLE);
-            chipView.setVisibility(View.VISIBLE);
-            pickUpAddr.setText(origin);
-            dropOffAddr.setText(dest);
-            fareDuration.setText(distance);
-            fareDistance.setText(duration);
-            farePrice.setText(fare);
-          }
-        } else {
-          // Hide notification and set text back to empty
-          title.setText("Waiting for trip assignments");
-          //detailedMessage.setText("Waiting for trip assignments");
+        if (Integer.parseInt(trip.getString("state")) < Integer.parseInt("3")) {
+          // driver is online/waiting for trips
+          title.setText("Waiting foor a trip assignment");
           pickUpAddr.setText("");
           dropOffAddr.setText("");
-          // pickUpLoc.setText("");
           fareDuration.setText("");
           fareDistance.setText("");
-          notificationView.setVisibility(View.GONE);
           addressView.setVisibility(View.GONE);
           chipView.setVisibility(View.GONE);
+          driverInfoView.setVisibility(View.VISIBLE);
+
+        } else if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("3")) {
+          // driver has trip assignment
+          title.setText("Assigned a trip");
+          addressView.setVisibility(View.VISIBLE);
+          chipView.setVisibility(View.VISIBLE);
+          pickUpAddr.setText(trip.getString("origin"));
+          dropOffAddr.setText(trip.getString("dest"));
+          fareDuration.setText(trip.getString("distance"));
+          fareDistance.setText(trip.getString("duration"));
+          farePrice.setText(trip.getString("fare"));
+          pickupMessage.setText(trip.getString("pickupMessage"));
+          driverInfoView.setVisibility(View.GONE);
+        } else if (Integer.parseInt(trip.getString("state")) > Integer.parseInt("3")) {
+          // driver is in an active trip
+          title.setText("Trip In Progress");
+          pickUpAddr.setText("");
+          dropOffAddr.setText("");
+          fareDuration.setText("");
+          fareDistance.setText("");
+          addressView.setVisibility(View.GONE);
+          chipView.setVisibility(View.GONE);
+          driverInfoView.setVisibility(View.GONE);
+        } else {
+          // not sure what is wrong?? should not reach here
         }
+
+        notificationView.setVisibility(View.VISIBLE);
+        reEnter.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            Intent launchIntent = reactContext.getPackageManager()
+                .getLaunchIntentForPackage(reactContext.getPackageName());
+            if (launchIntent != null) {
+              if (pickUpLocReact != null && dropOffLocReact != null && fareDistanceReact != null
+                  && fareDurationReact != null && fareReact != null) {
+                sendEvent("app-opened-from-notification");
+              }
+              reactContext.startActivity(launchIntent);
+              notificationView.setVisibility(View.GONE);
+            }
+          }
+        });
       } catch (Exception e) {
       }
 
@@ -287,31 +302,34 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void loadData(String origin, String dest, String duration, String distance, String fare, String assignmentId) {
-    pickUpLocReact = origin;
-    dropOffLocReact = dest;
-    fareDistanceReact = distance;
-    fareDurationReact = duration;
-    fareReact = fare;
-    assignmentIdReact = assignmentId;
-    //detailedMessageReact = pickupMessage;
+  public void loadData(ReadableMap trip) {
+    tripStateReact = trip.getString("state");
+    pickUpLocReact = trip.getString("origin");
+    dropOffLocReact = trip.getString("dest");
+    fareDistanceReact = trip.getString("distance");
+    fareDurationReact = trip.getString("duration");
+    fareReact = trip.getString("fare");
+    assignmentIdReact = trip.getString("assignmfentId");
+    pickupMessageReact = trip.getString("pickupMessage");
+    // detailedMessageReact = pickupMessage;
   }
 
   @ReactMethod
-  public void loadDataAndExpand(String origin, String dest, String duration, String distance, String fare,
-      String assignmentId) {
-    pickUpLocReact = origin;
-    dropOffLocReact = dest;
-    fareDistanceReact = distance;
-    fareDurationReact = duration;
-    fareReact = fare;
-    assignmentIdReact = assignmentId;
-    //detailedMessageReact = pickupMessage;
+  public void loadDataAndExpand(ReadableMap trip) {
+    tripStateReact = trip.getString("state");
+    pickUpLocReact = trip.getString("origin");
+    dropOffLocReact = trip.getString("dest");
+    fareDistanceReact = trip.getString("distance");
+    fareDurationReact = trip.getString("duration");
+    fareReact = trip.getString("fare");
+    assignmentIdReact = trip.getString("assignmentId");
+    pickupMessageReact = trip.getString("pickupMessage");
+    // detailedMessageReact = pickupMessage;
 
     runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        expandNotification(origin, dest, distance, duration, fare);
+        expandNotification(trip);
       }
     });
   }

@@ -48,7 +48,6 @@ export const destoryBubble = () => {
 export const loadData = (
   origin: string,
   dest: string,
-  pickupMessage: string,
   duration: string,
   distance: string,
   fare: string,
@@ -57,7 +56,6 @@ export const loadData = (
   return BubbleNotifications.loadData(
     origin,
     dest,
-    pickupMessage,
     duration,
     distance,
     fare,
@@ -68,7 +66,6 @@ export const loadData = (
 export const loadDataAndExpand = (
   origin: string,
   dest: string,
-  pickupMessage: string,
   duration: string,
   distance: string,
   fare: string,
@@ -77,7 +74,6 @@ export const loadDataAndExpand = (
   return BubbleNotifications.loadDataAndExpand(
     origin,
     dest,
-    pickupMessage,
     duration,
     distance,
     fare,

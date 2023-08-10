@@ -153,6 +153,36 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     }
   }
 
+  private void initLayout() {
+    try {
+      notificationView = bubbleView.findViewById(R.id.notification_layout);
+      title = bubbleView.findViewById(R.id.title);
+      driverNameView = bubbleView.findViewById(R.id.driver_name);
+      driverRatingView = bubbleView.findViewById(R.id.driver_rating);
+      reEnter = (Button) bubbleView.findViewById(R.id.re_open_app);
+
+      notificationView.setVisibility(View.GONE);
+      title.setText("Waiting for trip assignments");
+      driverNameView.setText(driverName);
+      driverRatingView.setText(driverRating);
+
+      reEnter.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          Intent launchIntent = reactContext.getPackageManager()
+              .getLaunchIntentForPackage(reactContext.getPackageName());
+          if (launchIntent != null) {
+            sendEvent("app-opened-from-notification");
+            reactContext.startActivity(launchIntent);
+            notificationView.setVisibility(View.GONE);
+          }
+        }
+      });
+
+    } catch (Exception e) {
+    }
+  }
+
   private void addNewBubble(int x, int y) {
     this.removeBubble();
     bubbleView = (BubbleLayout) LayoutInflater
@@ -185,12 +215,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           }
         });
     bubbleView.setShouldStickToWall(true);
-    title = bubbleView.findViewById(R.id.title);
-    driverNameView = bubbleView.findViewById(R.id.driver_name);
-    driverRatingView = bubbleView.findViewById(R.id.driver_rating);
-    title.setText("Waiting for trip assignments");
-    driverNameView.setText(driverName);
-    driverRatingView.setText(driverRating);
+    this.initLayout();
     bubblesManager.addBubble(bubbleView, x, y);
   }
 

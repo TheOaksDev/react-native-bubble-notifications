@@ -228,13 +228,6 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
         reEnter = (Button) bubbleView.findViewById(R.id.re_open_app);
 
-        addressView.setVisibility(View.GONE);
-        chipView.setVisibility(View.GONE);
-        title.setText("Waiting for trip assignments");
-
-        driverNameView.setText(driverName);
-        driverRatingView.setText(driverRating);
-
         // detailedMessage.setText("Waiting for trip assignments");
 
         // TODO
@@ -242,18 +235,26 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         // - use the trip state param and add logic for rendering different views
         // by showing/hiding elements or changing verbiage on text
 
-        if (Integer.parseInt(trip.getString("state")) < Integer.parseInt("3")) {
-          // driver is online/waiting for trips
-          title.setText("Waiting foor a trip assignment");
-          pickUpAddr.setText("");
-          dropOffAddr.setText("");
-          fareDuration.setText("");
-          fareDistance.setText("");
-          addressView.setVisibility(View.GONE);
-          chipView.setVisibility(View.GONE);
-          driverInfoView.setVisibility(View.VISIBLE);
+        if (notificationView.getVisibility() == View.GONE) {
+          notificationView.setVisibility(View.VISIBLE);
+          reEnter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              Intent launchIntent = reactContext.getPackageManager()
+                  .getLaunchIntentForPackage(reactContext.getPackageName());
+              if (launchIntent != null) {
+                if (pickUpLocReact != null && dropOffLocReact != null && fareDistanceReact != null
+                    && fareDurationReact != null && fareReact != null) {
+                  sendEvent("app-opened-from-notification");
+                }
+                reactContext.startActivity(launchIntent);
+                notificationView.setVisibility(View.GONE);
+              }
+            }
+          });
+        }
 
-        } else if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("3")) {
+        if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("3")) {
           // driver has trip assignment
           title.setText("Assigned a trip");
           addressView.setVisibility(View.VISIBLE);
@@ -276,25 +277,18 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           chipView.setVisibility(View.GONE);
           driverInfoView.setVisibility(View.GONE);
         } else {
+          title.setText("Waiting for a trip assignment");
+          driverNameView.setText(driverName);
+          driverRatingView.setText(driverRating);
+          pickUpAddr.setText("");
+          dropOffAddr.setText("");
+          fareDuration.setText("");
+          fareDistance.setText("");
+          addressView.setVisibility(View.GONE);
+          chipView.setVisibility(View.GONE);
+          driverInfoView.setVisibility(View.VISIBLE);
           // not sure what is wrong?? should not reach here
         }
-
-        notificationView.setVisibility(View.VISIBLE);
-        reEnter.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            Intent launchIntent = reactContext.getPackageManager()
-                .getLaunchIntentForPackage(reactContext.getPackageName());
-            if (launchIntent != null) {
-              if (pickUpLocReact != null && dropOffLocReact != null && fareDistanceReact != null
-                  && fareDurationReact != null && fareReact != null) {
-                sendEvent("app-opened-from-notification");
-              }
-              reactContext.startActivity(launchIntent);
-              notificationView.setVisibility(View.GONE);
-            }
-          }
-        });
       } catch (Exception e) {
       }
 

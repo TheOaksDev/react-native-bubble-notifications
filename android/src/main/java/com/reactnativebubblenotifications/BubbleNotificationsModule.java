@@ -281,8 +281,6 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("3")) {
           // driver has trip assignment
           title.setText("Assigned a trip");
-          addressView.setVisibility(View.VISIBLE);
-          chipView.setVisibility(View.VISIBLE);
           pickUpAddr.setText(trip.getString("origin"));
           dropOffAddr.setText(trip.getString("dest"));
           fareDuration.setText(trip.getString("distance"));
@@ -290,6 +288,9 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           farePrice.setText(trip.getString("fare"));
           pickupMessage.setText(trip.getString("pickupMessage"));
           driverInfoView.setVisibility(View.GONE);
+          addressView.setVisibility(View.VISIBLE);
+          chipView.setVisibility(View.VISIBLE);
+          pickupMessageView.setVisibility(View.VISIBLE);
         } else if (Integer.parseInt(trip.getString("state")) > Integer.parseInt("3")) {
           // driver is in an active trip
           title.setText("Trip In Progress");
@@ -299,6 +300,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           fareDistance.setText("");
           addressView.setVisibility(View.GONE);
           chipView.setVisibility(View.GONE);
+          pickupMessageView.setVisibility(View.GONE);
           driverInfoView.setVisibility(View.GONE);
         } else {
           title.setText("Waiting for a trip assignment");
@@ -310,6 +312,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           fareDistance.setText("");
           addressView.setVisibility(View.GONE);
           chipView.setVisibility(View.GONE);
+          pickupMessageView.setVisibility(View.GONE);
           driverInfoView.setVisibility(View.VISIBLE);
           // not sure what is wrong?? should not reach here
         }
@@ -371,6 +374,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
       fareDurationReact = null;
       fareReact = null;
       assignmentIdReact = null;
+      tripStateReact = null;
+      pickupMessageReact = null;
       promise.resolve("Data Wiped");
     } catch (Exception e) {
       promise.reject(e);

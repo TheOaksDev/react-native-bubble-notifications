@@ -220,7 +220,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         title.setText("Waiting for trip assignments");
         
         driverNameView.setText(driverName);
-        driverRating.setText(driverRating);
+        driverRatingView.setText(driverRating);
 
         //detailedMessage.setText("Waiting for trip assignments");
 

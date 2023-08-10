@@ -25,6 +25,7 @@ type Trip = {
   distance: string;
   fare: string;
   assignmentId: string;
+  pickupMessage: string;
 };
 
 export const setConfig = (name = 'Driver', rating = '5.0') => {

@@ -41,8 +41,8 @@
         android:layout_weight="1"
         android:layout_gravity="start"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingTop="20dp"
+        android:paddingLeft="12dp"
+        android:paddingTop="12dp"
         android:paddingBottom="10dp"
         android:showDividers="middle"
         android:divider="@drawable/width_divider"
@@ -60,21 +60,21 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_gravity="center"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_gravity="start"
         android:fontFamily="sans-serif-medium"
         android:text="Waiting for trip assignments"
         android:textColor="#f4f4f4"
-        android:textSize="22sp" />
+        android:textSize="24sp" />
 
       <LinearLayout
         android:id="@+id/address_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:visibility="gone">
 
         <LinearLayout
@@ -87,7 +87,7 @@
           <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="start"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
@@ -97,25 +97,28 @@
               android:id="@+id/markerFrom"
               android:layout_width="25dp"
               android:layout_height="25dp"
+              android:layout_gravity="center"
               android:layout_weight="0"
+              android:layout_marginRight="5dp"
               android:src="@drawable/marker_from" />
 
             <TextView
               android:id="@+id/pickUpAddress"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:layout_gravity="center"
               android:fontFamily="sans-serif-medium"
               android:lines="1"
               android:text="1413 Colorado Bend Dr, Cedar Park "
               android:textColor="#f4f4f4"
-              android:textSize="22dp" />
+              android:textSize="18dp" />
 
           </LinearLayout>
 
           <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="start"
             android:layout_weight="0"
             android:orientation="horizontal">
 
@@ -123,6 +126,8 @@
               android:id="@+id/markerTo"
               android:layout_width="25dp"
               android:layout_height="25dp"
+              android:layout_gravity="center"
+              android:layout_marginRight="5dp"
               android:layout_weight="0"
               android:src="@drawable/marker_to" />
 
@@ -130,11 +135,12 @@
               android:id="@+id/dropOffAddress"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:layout_gravity="center"
               android:fontFamily="sans-serif-medium"
               android:lines="1"
               android:text="Mojo Coffee Ranch Road 620, Cedar Park"
               android:textColor="#f4f4f4"
-              android:textSize="22dp" />
+              android:textSize="18dp" />
 
           </LinearLayout>
 
@@ -147,8 +153,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:showDividers="middle"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:divider="@drawable/width_divider"
         android:layout_marginTop="10dp"
         android:visibility="gone">
@@ -163,7 +169,7 @@
           android:padding="8dp"
           android:text="$10.50"
           android:textColor="#f4f4f4"
-          android:textSize="24sp" />
+          android:textSize="16sp" />
 
         <TextView
           android:id="@+id/distance"
@@ -175,7 +181,7 @@
           android:padding="8dp"
           android:text="5 mi"
           android:textColor="#f4f4f4"
-          android:textSize="24sp" />
+          android:textSize="16sp" />
 
         <TextView
           android:id="@+id/duration"
@@ -187,25 +193,47 @@
           android:padding="8dp"
           android:text="20 min"
           android:textColor="#f4f4f4"
-          android:textSize="24sp" />
+          android:textSize="16sp" />
 
       </LinearLayout>
 
       <LinearLayout
+        android:id="@+id/pickup_message_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:layout_marginTop="10dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:visibility="gone">
+        <TextView
+          android:id="@+id/pickup_message"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start"
+          android:fontFamily="sans-serif-medium"
+          android:text="3 min (5 miles) to pickup"
+          android:textColor="#f4f4f4"
+          android:textSize="14sp" />
+      </LinearLayout>
+      <LinearLayout
+        android:id="@+id/driver_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:visibility="visible">
 
 
         <LinearLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="0"
-          android:orientation="vertical"
-          android:padding="5dp">
+          android:orientation="vertical">
 
           <TextView
             android:id="@+id/driver_name"

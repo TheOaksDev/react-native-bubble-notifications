@@ -228,6 +228,18 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
         reEnter = (Button) bubbleView.findViewById(R.id.re_open_app);
 
+        reEnter.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            Intent launchIntent = reactContext.getPackageManager()
+                .getLaunchIntentForPackage(reactContext.getPackageName());
+            if (launchIntent != null) {
+              sendEvent("app-opened-from-notification");
+              reactContext.startActivity(launchIntent);
+              notificationView.setVisibility(View.GONE);
+            }
+          }
+        });
         // detailedMessage.setText("Waiting for trip assignments");
 
         // TODO
@@ -237,21 +249,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
         if (notificationView.getVisibility() == View.GONE) {
           notificationView.setVisibility(View.VISIBLE);
-          reEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              Intent launchIntent = reactContext.getPackageManager()
-                  .getLaunchIntentForPackage(reactContext.getPackageName());
-              if (launchIntent != null) {
-                if (pickUpLocReact != null && dropOffLocReact != null && fareDistanceReact != null
-                    && fareDurationReact != null && fareReact != null) {
-                  sendEvent("app-opened-from-notification");
-                }
-                reactContext.startActivity(launchIntent);
-                notificationView.setVisibility(View.GONE);
-              }
-            }
-          });
+        } else {
+          notificationView.setVisibility(View.GONE);
         }
 
         if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("3")) {

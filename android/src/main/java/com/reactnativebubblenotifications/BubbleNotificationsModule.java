@@ -384,7 +384,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     fareDistanceReact = trip.getString("distance");
     fareDurationReact = trip.getString("duration");
     fareReact = trip.getString("fare");
-    assignmentIdReact = trip.getString("assignmfentId");
+    assignmentIdReact = trip.getString("assignmentId");
     pickupMessageReact = trip.getString("pickupMessage");
     // detailedMessageReact = pickupMessage;
   }

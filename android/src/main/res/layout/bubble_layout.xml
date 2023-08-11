@@ -3,7 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="wrap_content"
+  android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:clipChildren="false"
   android:clipToPadding="false"
@@ -26,8 +26,8 @@
 
     <LinearLayout
       android:id="@+id/notification_layout"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       android:layout_gravity="center"
       android:background="@drawable/rounded_corners"
       android:orientation="vertical"
@@ -66,7 +66,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="Waiting for trip assignments"
         android:textColor="#f4f4f4"
-        android:textSize="24sp" />
+        android:textSize="28sp" />
 
       <LinearLayout
         android:id="@+id/address_container"
@@ -215,7 +215,7 @@
           android:fontFamily="sans-serif-medium"
           android:text="3 min (5 miles) to pickup"
           android:textColor="#f4f4f4"
-          android:textSize="14sp" />
+          android:textSize="18sp" />
       </LinearLayout>
       <LinearLayout
         android:id="@+id/driver_info"
@@ -243,7 +243,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="Driver Name"
             android:textColor="#f4f4f4"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
           <LinearLayout
             android:layout_width="wrap_content"
@@ -253,8 +253,9 @@
 
             <ImageView
               android:id="@+id/star_icon"
-              android:layout_width="18dp"
-              android:layout_height="18dp"
+              android:layout_width="20sp"
+              android:layout_height="20sp"
+              android:layout_gravity="center"
               android:textColor="#f4f4f4"
               android:src="@drawable/star" />
 
@@ -266,7 +267,7 @@
               android:fontFamily="sans-serif-medium"
               android:text="5.0"
               android:textColor="#f4f4f4"
-              android:textSize="14sp" />
+              android:textSize="16sp" />
 
           </LinearLayout>
         </LinearLayout>
@@ -289,6 +290,7 @@
             android:id="@+id/bolt_icon"
             android:layout_width="18dp"
             android:layout_height="18dp"
+            android:layout_gravity="center"
             android:textColor="#f4f4f4"
             android:src="@drawable/bolt_fill" />
 
@@ -300,7 +302,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="Online"
             android:textColor="#f4f4f4"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         </LinearLayout>
       </LinearLayout>

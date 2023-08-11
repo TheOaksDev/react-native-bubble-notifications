@@ -313,6 +313,16 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           chipView.setVisibility(View.GONE);
           pickupMessageView.setVisibility(View.GONE);
           driverInfoView.setVisibility(View.GONE);
+        } else if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("10")) {
+          title.setText("Trip Cancelled");
+          pickUpAddr.setText("");
+          dropOffAddr.setText("");
+          fareDuration.setText("");
+          fareDistance.setText("");
+          addressView.setVisibility(View.GONE);
+          chipView.setVisibility(View.GONE);
+          pickupMessageView.setVisibility(View.GONE);
+          driverInfoView.setVisibility(View.GONE);
         } else {
           if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("1")) {
             title.setText("Waiting for a trip assignment");

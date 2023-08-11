@@ -302,7 +302,18 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           addressView.setVisibility(View.VISIBLE);
           chipView.setVisibility(View.VISIBLE);
           pickupMessageView.setVisibility(View.VISIBLE);
-        } else if (Integer.parseInt(trip.getString("state")) > Integer.parseInt("3")) {
+        } else if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("10")) {
+          title.setText("Trip Cancelled");
+          pickUpAddr.setText("");
+          dropOffAddr.setText("");
+          fareDuration.setText("");
+          fareDistance.setText("");
+          addressView.setVisibility(View.GONE);
+          chipView.setVisibility(View.GONE);
+          pickupMessageView.setVisibility(View.GONE);
+          driverInfoView.setVisibility(View.GONE);
+        } else if (Integer.parseInt(trip.getString("state")) > Integer.parseInt("3")
+            && Integer.parseInt(trip.getString("state")) <= Integer.parseInt("6")) {
           // driver is in an active trip
           title.setText("Trip In Progress");
           pickUpAddr.setText("");
@@ -313,8 +324,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           chipView.setVisibility(View.GONE);
           pickupMessageView.setVisibility(View.GONE);
           driverInfoView.setVisibility(View.GONE);
-        } else if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("10")) {
-          title.setText("Trip Cancelled");
+        } else if (Integer.parseInt(trip.getString("state")) > Integer.parseInt("6")) {
+          title.setText("Trip Completed");
           pickUpAddr.setText("");
           dropOffAddr.setText("");
           fareDuration.setText("");

@@ -67,6 +67,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
   private String driverName;
   private TextView driverRatingView;
   private String driverRating;
+  private TextView statusText;
 
   // Standard Varibales
   private TextView title;
@@ -158,11 +159,21 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
       notificationView = bubbleView.findViewById(R.id.notification_layout);
       title = bubbleView.findViewById(R.id.title);
       driverNameView = bubbleView.findViewById(R.id.driver_name);
+      statusText = bubbleView.findViewById(R.id.status_text);
       driverRatingView = bubbleView.findViewById(R.id.driver_rating);
       reEnter = (Button) bubbleView.findViewById(R.id.re_open_app);
 
       notificationView.setVisibility(View.GONE);
-      title.setText("Waiting for trip assignments");
+
+      if (tripStateReact == "0") {
+        title.setText("Not receiving trip assignments");
+        statusText.setText("Offline");
+      }
+
+      if (tripStateReact == "1") {
+        title.setText("Waiting for trip assignments");
+        statusText.setText("Online");
+      }
       driverNameView.setText(driverName);
       driverRatingView.setText(driverRating);
 
@@ -303,7 +314,13 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           pickupMessageView.setVisibility(View.GONE);
           driverInfoView.setVisibility(View.GONE);
         } else {
-          title.setText("Waiting for a trip assignment");
+          if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("1")) {
+            title.setText("Waiting for a trip assignment");
+            statusText.setText("Online");
+          } else {
+            title.setText("Not receiving trip assignments");
+            statusText.setText("Offline");
+          }
           driverNameView.setText(driverName);
           driverRatingView.setText(driverRating);
           pickUpAddr.setText("");

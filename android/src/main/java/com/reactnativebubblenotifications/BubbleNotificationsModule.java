@@ -316,23 +316,39 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
             && Integer.parseInt(trip.getString("state")) <= Integer.parseInt("6")) {
           // driver is in an active trip
           title.setText("Trip In Progress");
+          if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("4")) {
+            title.setText("In Route to Pickup");
+            pickupMessage.setText(String.format("Proceed to %s", trip.getString("origin")));
+          }
+
+          if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("5")) {
+            title.setText("Waiting at Pickup");
+            pickupMessage.setText("Let your passenger know you have arrived");
+          }
+
+          if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("6")) {
+            title.setText("In Route to Destination");
+            pickupMessage.setText(String.format("Proceed to %s", trip.getString("dest")));
+          }
+
+          pickupMessageView.setVisibility(View.VISIBLE);
           pickUpAddr.setText("");
           dropOffAddr.setText("");
           fareDuration.setText("");
           fareDistance.setText("");
           addressView.setVisibility(View.GONE);
           chipView.setVisibility(View.GONE);
-          pickupMessageView.setVisibility(View.GONE);
           driverInfoView.setVisibility(View.GONE);
         } else if (Integer.parseInt(trip.getString("state")) > Integer.parseInt("6")) {
           title.setText("Trip Completed");
+          pickupMessage.setText("Don't forget to rate your passenger!");
           pickUpAddr.setText("");
           dropOffAddr.setText("");
           fareDuration.setText("");
           fareDistance.setText("");
           addressView.setVisibility(View.GONE);
           chipView.setVisibility(View.GONE);
-          pickupMessageView.setVisibility(View.GONE);
+          pickupMessageView.setVisibility(View.VISIBLE);
           driverInfoView.setVisibility(View.GONE);
         } else {
           if (Integer.parseInt(trip.getString("state")) == Integer.parseInt("1")) {

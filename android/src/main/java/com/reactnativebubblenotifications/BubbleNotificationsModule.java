@@ -5,6 +5,7 @@ import static com.facebook.react.bridge.UiThreadUtil.runOnUiThread;
 import androidx.annotation.NonNull;
 
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.provider.Settings;
 import android.os.Build;
@@ -171,7 +172,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
       }
 
       if (tripStateReact.equals("1")) {
-        title.setText("Waiting for trip assignments BLAH");
+        title.setText("Waiting for a trip assignment");
         statusText.setText("Online");
       }
       driverNameView.setText(driverName);
@@ -239,7 +240,8 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
   public void expandNotification(ReadableMap trip) {
     // Identify all resources
-
+    Log.d("BubbleNotifications", "expandNotification() called");
+    Log.d("BubbleNotifications", "Bubble View: " + bubbleView);
     if (bubbleView != null) {
 
       try {
@@ -288,8 +290,9 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
         } else {
           notificationView.setVisibility(View.GONE);
         }
-
+        Log.d("BubbleNotifications", "Trip State: " + trip.toString());
         int tripState = Integer.parseInt(trip.getString("state"));
+        Log.d("BubbleNotifications", "Trip State: " + tripState);
 
         if (tripState == 3) {
           // driver has trip assignment
@@ -351,13 +354,18 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           pickupMessageView.setVisibility(View.VISIBLE);
           driverInfoView.setVisibility(View.GONE);
         } else {
+
           if (tripState == 1) {
-            title.setText("Waiting for a trip assignment BLAH BLAH");
+            title.setText("Waiting for a trip assignment");
             statusText.setText("Online");
           } else {
             title.setText("Not receiving trip assignments");
             statusText.setText("Offline");
           }
+
+          Log.d("BubbleNotifications", "Driver Name: " + driverName);
+          Log.d("BubbleNotifications", "Driver Rating: " + driverRating);
+
           driverNameView.setText(driverName);
           driverRatingView.setText(driverRating);
           pickUpAddr.setText("");
@@ -371,6 +379,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
           // not sure what is wrong?? should not reach here
         }
       } catch (Exception e) {
+        Log.d("BubbleNotifications", "Error in expandNotification(): ", e);
       }
 
     }
@@ -378,6 +387,7 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void loadData(ReadableMap trip) {
+    Log.d("BubbleNotifications", "Trip Data: " + trip.toString());
     tripStateReact = trip.getString("state");
     pickUpLocReact = trip.getString("origin");
     dropOffLocReact = trip.getString("dest");

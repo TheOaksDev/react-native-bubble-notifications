@@ -165,12 +165,12 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
 
       notificationView.setVisibility(View.GONE);
 
-      if (tripStateReact == "0") {
+      if (Integer.parseInt(tripStateReact) == Integer.parseInt("0")) {
         title.setText("Not receiving trip assignments");
         statusText.setText("Offline");
       }
 
-      if (tripStateReact == "1") {
+      if (Integer.parseInt(tripStateReact) == Integer.parseInt("1")) {
         title.setText("Waiting for trip assignments");
         statusText.setText("Online");
       }

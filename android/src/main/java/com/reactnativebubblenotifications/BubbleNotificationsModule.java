@@ -3,6 +3,7 @@ package com.reactnativebubblenotifications;
 import static com.facebook.react.bridge.UiThreadUtil.runOnUiThread;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 
 import android.text.Layout;
 import android.util.Log;
@@ -517,25 +518,23 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
   }
 
   private void removeBubble() {
-    // Fixes error thrown in production in Wridz v2.3.21 and below
+    // Bug fix for Wridz app v2.3.21 and below
+    // NEW LINE: ViewCompat.isAttachedToWindow(bubbleView)
     // Exception java.lang.IllegalArgumentException:
     // at android.view.WindowManagerImpl.removeView (WindowManagerImpl.java:201)
     // at com.txusballesteros.bubbles.BubblesService$1.run (BubblesService.java:68)
-    // Checks to make sure the current activity is not destroyed before
-    // doing any work on it
-    Activity currentActivity = getCurrentActivity();
-    if (currentActivity == null) {
-      Log.d("BubbleNotifications", "removeBubble() - currentActivity == null");
-      return;
-    }
-
+    // Checks to make sure the current activity is attached to view before
+    // trying to remove any views
     Log.d("BubbleNotifications", "removeBubble() - currentActivity exists");
-    if (bubbleView != null) {
+    if (bubbleView != null && ViewCompat.isAttachedToWindow(bubbleView)) {
       try {
+        Log.d("BubbleNotifications", "removeBubble() - bubbleView exists");
         bubblesManager.removeBubble(bubbleView);
         bubbleStatus.put("ShowingBubble", new Boolean(false));
       } catch (Exception e) {
       }
+    } else {
+      Log.d("BubbleNotifications", "removeBubble() - bubbleView not attached to window");
     }
   }
 

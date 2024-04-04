@@ -525,16 +525,12 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     // at com.txusballesteros.bubbles.BubblesService$1.run (BubblesService.java:68)
     // Checks to make sure the current activity is attached to view before
     // trying to remove any views
-    Log.d("BubbleNotifications", "removeBubble() - currentActivity exists");
     if (bubbleView != null && ViewCompat.isAttachedToWindow(bubbleView)) {
       try {
-        Log.d("BubbleNotifications", "removeBubble() - bubbleView exists");
         bubblesManager.removeBubble(bubbleView);
         bubbleStatus.put("ShowingBubble", new Boolean(false));
       } catch (Exception e) {
       }
-    } else {
-      Log.d("BubbleNotifications", "removeBubble() - bubbleView not attached to window");
     }
   }
 

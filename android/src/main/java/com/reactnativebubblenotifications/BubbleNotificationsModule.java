@@ -525,9 +525,11 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     // doing any work on it
     Activity currentActivity = getCurrentActivity();
     if (currentActivity == null) {
+      Log.d("BubbleNotifications", "removeBubble() - currentActivity == null");
       return;
     }
 
+    Log.d("BubbleNotifications", "removeBubble() - currentActivity exists");
     if (bubbleView != null) {
       try {
         bubblesManager.removeBubble(bubbleView);

@@ -517,8 +517,14 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
   }
 
   private void removeBubble() {
+    // Fixes error thrown in production in Wridz v2.3.21 and below
+    // Exception java.lang.IllegalArgumentException:
+    // at android.view.WindowManagerImpl.removeView (WindowManagerImpl.java:201)
+    // at com.txusballesteros.bubbles.BubblesService$1.run (BubblesService.java:68)
+    // Checks to make sure the current activity is not destroyed before
+    // doing any work on it
     Activity currentActivity = getCurrentActivity();
-    if (currentActivity.this.isDestroyed()) {
+    if (currentActivity == null) {
       return;
     }
 

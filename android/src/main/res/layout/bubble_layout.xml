@@ -71,7 +71,8 @@
         android:paddingRight="12dp"
         android:text="Waiting for trip assignments"
         android:textColor="#f4f4f4"
-        android:textSize="28sp" />
+        android:textSize="28sp"
+        android:autoSizeMaxTextSize="34sp" />
 
       <LinearLayout
         android:id="@+id/address_container"
@@ -117,7 +118,8 @@
               android:lines="1"
               android:text="1413 Colorado Bend Dr, Cedar Park "
               android:textColor="#f4f4f4"
-              android:textSize="18dp" />
+              android:textSize="18dp"
+              android:autoSizeMaxTextSize="22sp" />
 
           </LinearLayout>
 
@@ -146,7 +148,8 @@
               android:lines="1"
               android:text="Mojo Coffee Ranch Road 620, Cedar Park"
               android:textColor="#f4f4f4"
-              android:textSize="18dp" />
+              android:textSize="18dp"
+              android:autoSizeMaxTextSize="22sp" />
 
           </LinearLayout>
 
@@ -175,7 +178,8 @@
           android:padding="8dp"
           android:text="$10.50"
           android:textColor="#f4f4f4"
-          android:textSize="16sp" />
+          android:textSize="16sp"
+          android:autoSizeMaxTextSize="20sp" />
 
         <TextView
           android:id="@+id/distance"
@@ -199,7 +203,8 @@
           android:padding="8dp"
           android:text="20 min"
           android:textColor="#f4f4f4"
-          android:textSize="16sp" />
+          android:textSize="16sp"
+          android:autoSizeMaxTextSize="20sp" />
 
       </LinearLayout>
 
@@ -222,7 +227,8 @@
           android:fontFamily="sans-serif-medium"
           android:text="3 min (5 miles) to pickup"
           android:textColor="#f4f4f4"
-          android:textSize="18sp" />
+          android:textSize="18sp"
+          android:autoSizeMaxTextSize="22sp" />
       </LinearLayout>
 
       <LinearLayout
@@ -251,7 +257,8 @@
             android:fontFamily="sans-serif-medium"
             android:text="Driver Name"
             android:textColor="#f4f4f4"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:autoSizeMaxTextSize="20sp" />
 
           <LinearLayout
             android:layout_width="wrap_content"
@@ -275,7 +282,8 @@
               android:fontFamily="sans-serif-medium"
               android:text="5.0"
               android:textColor="#f4f4f4"
-              android:textSize="16sp" />
+              android:textSize="16sp"
+              android:autoSizeMaxTextSize="20sp" />
 
           </LinearLayout>
         </LinearLayout>
@@ -310,7 +318,8 @@
             android:fontFamily="sans-serif-medium"
             android:text="Online"
             android:textColor="#f4f4f4"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:autoSizeMaxTextSize="20sp" />
 
         </LinearLayout>
       </LinearLayout>
@@ -335,7 +344,8 @@
           android:text="Return to app"
           android:textColor="#f4f4f4"
           android:textFontWeight="700"
-          android:textSize="15dp" />
+          android:textSize="16dp"
+          android:autoSizeMaxTextSize="20sp" />
 
       </LinearLayout>
 

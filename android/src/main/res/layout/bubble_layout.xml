@@ -71,8 +71,8 @@
         android:paddingRight="12dp"
         android:text="Waiting for trip assignments"
         android:textColor="#f4f4f4"
-        android:textSize="28sp"
-        android:autoSizeMaxTextSize="34sp" />
+        android:textSize="22sp"
+        android:autoSizeMaxTextSize="22sp" />
 
       <LinearLayout
         android:id="@+id/address_container"
@@ -336,7 +336,7 @@
         <Button
           android:id="@+id/re_open_app"
           android:layout_width="250dp"
-          android:layout_height="45dp"
+          android:layout_height="50dp"
           android:layout_gravity="center"
           android:layout_marginVertical="15dp"
           android:background="@drawable/round_button"
@@ -344,8 +344,7 @@
           android:text="Return to app"
           android:textColor="#f4f4f4"
           android:textFontWeight="700"
-          android:textSize="16dp"
-          android:autoSizeMaxTextSize="20sp" />
+          android:textSize="16dp" />
 
       </LinearLayout>
 

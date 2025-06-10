@@ -19,10 +19,10 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
-    compileSdkVersion safeExtGet('BubbleNotifications_compileSdkVersion', 29)
+    compileSdkVersion safeExtGet('BubbleNotifications_compileSdkVersion', 30)
     defaultConfig {
-        minSdkVersion safeExtGet('BubbleNotifications_minSdkVersion', 16)
-        targetSdkVersion safeExtGet('BubbleNotifications_targetSdkVersion', 29)
+        minSdkVersion safeExtGet('BubbleNotifications_minSdkVersion', 21)
+        targetSdkVersion safeExtGet('BubbleNotifications_targetSdkVersion', 30)
         versionCode 1
         versionName "1.0"
 
@@ -59,5 +59,5 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation 'com.github.txusballesteros:bubbles-for-android:develop-SNAPSHOT'
+    implementation 'com.github.txusballesteros:bubbles-for-android:0df5db1679'
 }

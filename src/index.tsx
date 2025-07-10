@@ -64,6 +64,10 @@ export const loadDataAndExpand = (trip: Trip) => {
   return BubbleNotifications.loadDataAndExpand(trip);
 };
 
+export const minimizeBubble = () => {
+  return BubbleNotifications.minimize();
+};
+
 export const getBubbleState = () => {
   return BubbleNotifications.getState();
 };

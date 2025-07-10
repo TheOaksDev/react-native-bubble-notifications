@@ -156,6 +156,21 @@ public class BubbleNotificationsModule extends ReactContextBaseJavaModule {
     }
   }
 
+  @ReactMethod
+  public void minimize() {
+    try {
+      runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          notificationView = bubbleView.findViewById(R.id.notification_layout);
+          notificationView.setVisibility(View.GONE);
+        }
+      });
+    } catch (Exception e) {
+      Log.d("BubbleNotifications", "Error in minimize(): ", e);
+    }
+  }
+
   private void initLayout() {
     try {
       notificationView = bubbleView.findViewById(R.id.notification_layout);
